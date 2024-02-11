@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CardData } from "../MOCK_DATA";
-import { Card } from ".";
+import { AddCard, Card, DropIndicator } from ".";
 
 type ColumnProps = {
   title: string;
@@ -35,6 +35,8 @@ const Column = ({
         {filteredCards.map((card) => {
           return <Card key={card.id} {...card} />;
         })}
+        <DropIndicator beforeId="-1" column={column} />
+        <AddCard column={column} setCards={setCards} />
       </div>
     </div>
   );

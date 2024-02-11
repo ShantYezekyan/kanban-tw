@@ -16,7 +16,6 @@ const Card = ({ title, id, column }: CardProps) => {
       >
         <p className=" text-sm text-neutral-100 ">{title}</p>
       </div>
-      <DropIndicator beforeId="-1" column={column} />
     </>
   );
 };
