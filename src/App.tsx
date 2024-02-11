@@ -1,7 +1,9 @@
+import { Board } from "./components";
+
 const App = () => {
   return (
-    <div>
-      <h1 className="bg-red-800 text-green-800">Hello</h1>
+    <div className="h-screen w-full bg-neutral-900 text-neutral-50">
+      <Board />
     </div>
   );
 };
