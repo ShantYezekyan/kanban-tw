@@ -14,7 +14,7 @@ type CardProps = {
 
 const Card = ({ title, id, column, handleDragStart }: CardProps) => {
   return (
-    <div>
+    <>
       <DropIndicator beforeId={id} column={column} />
       <motion.div
         layout
@@ -25,7 +25,7 @@ const Card = ({ title, id, column, handleDragStart }: CardProps) => {
       >
         <p className=" text-sm text-neutral-100 ">{title}</p>
       </motion.div>
-    </div>
+    </>
   );
 };
 
