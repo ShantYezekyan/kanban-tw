@@ -1,9 +1,9 @@
-export type Task = {
+export type TaskType = {
   title: string;
   id: string;
 };
 
-export type Column = {
+export type ColumnType = {
   id: string;
   title: string;
   headingColor: string;
@@ -12,10 +12,10 @@ export type Column = {
 
 export type BoardData = {
   columns: {
-    [key: string]: Column;
+    [key: string]: ColumnType;
   };
   tasks: {
-    [key: string]: Task;
+    [key: string]: TaskType;
   };
   columnOrder: string[];
 };

@@ -1,10 +1,64 @@
 import { DragDropContext } from "react-beautiful-dnd";
 import { useBoardData } from "../hooks/useBoardData";
 import { Column, DeleteBox } from ".";
-import type { DropResult } from "react-beautiful-dnd";
+import type { DropResult, DraggableLocation } from "react-beautiful-dnd";
+import type { ColumnType } from "../types";
 
 const Board = () => {
   const { data, setData } = useBoardData();
+
+  const moveWithinColumn = (
+    start: ColumnType,
+    source: DraggableLocation,
+    destination: DraggableLocation,
+    draggableId: string,
+  ) => {
+    const newTaskIds = [...start.taskIds];
+    newTaskIds.splice(source.index, 1);
+    newTaskIds.splice(destination.index, 0, draggableId);
+
+    const newColumn = {
+      ...start,
+      taskIds: newTaskIds,
+    };
+
+    setData({
+      ...data,
+      columns: {
+        ...data.columns,
+        [newColumn.id]: newColumn,
+      },
+    });
+  };
+
+  const moveBetweenColumns = (
+    start: ColumnType,
+    finish: ColumnType,
+    source: DraggableLocation,
+    destination: DraggableLocation,
+    draggableId: string,
+  ) => {
+    const startTaskIds = [...start.taskIds];
+    startTaskIds.splice(source.index, 1);
+    const newStart = {
+      ...start,
+      taskIds: startTaskIds,
+    };
+    const finishTaskIds = [...finish.taskIds];
+    finishTaskIds.splice(destination.index, 0, draggableId);
+    const newFinish = {
+      ...finish,
+      taskIds: finishTaskIds,
+    };
+    setData({
+      ...data,
+      columns: {
+        ...data.columns,
+        [newStart.id]: newStart,
+        [newFinish.id]: newFinish,
+      },
+    });
+  };
 
   const handleDragEnd = (result: DropResult) => {
     const { destination, source, draggableId } = result;
@@ -22,23 +76,14 @@ const Board = () => {
       return;
     }
 
-    const column = data.columns[source.droppableId];
-    const newTaskIds = [...column.taskIds];
-    newTaskIds.splice(source.index, 1);
-    newTaskIds.splice(destination.index, 0, draggableId);
+    const start = data.columns[source.droppableId];
+    const finish = data.columns[destination.droppableId];
 
-    const newColumn = {
-      ...column,
-      taskIds: newTaskIds,
-    };
-
-    setData({
-      ...data,
-      columns: {
-        ...data.columns,
-        [newColumn.id]: newColumn,
-      },
-    });
+    if (start === finish) {
+      moveWithinColumn(start, source, destination, draggableId);
+    } else {
+      moveBetweenColumns(start, finish, source, destination, draggableId);
+    }
   };
 
   return (

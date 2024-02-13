@@ -1,10 +1,10 @@
 import { Droppable } from "react-beautiful-dnd";
 import { AddCard, Card } from ".";
-import type { BoardData, Column, Task } from "../types";
+import type { BoardData, ColumnType, TaskType } from "../types";
 
 type ColumnProps = {
-  column: Column;
-  cards: Task[];
+  column: ColumnType;
+  cards: TaskType[];
   setData: React.Dispatch<React.SetStateAction<BoardData>>;
 };
 
