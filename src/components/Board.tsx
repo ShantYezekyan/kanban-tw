@@ -1,12 +1,10 @@
-import { useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
+import { useBoardData } from "../hooks/useBoardData";
 import { Column, DeleteBox } from ".";
-import { DEFAULT_CARDS } from "../MOCK_DATA";
-import type { BoardData } from "../MOCK_DATA";
 import type { DropResult } from "react-beautiful-dnd";
 
 const Board = () => {
-  const [data, setData] = useState<BoardData>(DEFAULT_CARDS);
+  const { data, setData } = useBoardData();
 
   const handleDragEnd = (result: DropResult) => {
     const { destination, source, draggableId } = result;
@@ -51,7 +49,14 @@ const Board = () => {
             const column = data.columns[columnId];
             const tasks = column.taskIds.map((taskId) => data.tasks[taskId]);
 
-            return <Column key={columnId} column={column} cards={tasks} />;
+            return (
+              <Column
+                key={columnId}
+                column={column}
+                cards={tasks}
+                setData={setData}
+              />
+            );
           })}
         </div>
 

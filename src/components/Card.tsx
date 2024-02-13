@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Draggable } from "react-beautiful-dnd";
 
 type CardProps = {
@@ -6,7 +7,7 @@ type CardProps = {
   index: number;
 };
 
-const Card = ({ title, id, index }: CardProps) => {
+const Card = memo(({ title, id, index }: CardProps) => {
   return (
     <Draggable draggableId={id} index={index}>
       {({ innerRef, draggableProps, dragHandleProps }) => (
@@ -21,6 +22,6 @@ const Card = ({ title, id, index }: CardProps) => {
       )}
     </Draggable>
   );
-};
+});
 
 export default Card;

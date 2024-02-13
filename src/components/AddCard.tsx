@@ -1,27 +1,44 @@
 import { useState } from "react";
+import { useBoardData } from "../hooks/useBoardData";
 import { FiPlus } from "react-icons/fi";
 import { motion } from "framer-motion";
 
 type AddCardProps = {
-  column: string;
+  columnId: string;
 };
 
-const AddCard = ({ column }: AddCardProps) => {
+const AddCard = ({ columnId }: AddCardProps) => {
   const [text, setText] = useState("");
   const [adding, setAdding] = useState(false);
+  const { data, setData } = useBoardData();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!text.trim().length) return;
 
-    const newCard = {
-      column,
+    const newTaskId = "task-" + Math.random().toString();
+    const newTask = {
+      id: newTaskId,
       title: text.trim(),
-      id: Math.random().toString(),
+    };
+    const updatedTasks = {
+      ...data.tasks,
+      [newTaskId]: newTask,
+    };
+    const updatedColumn = {
+      ...data.columns[columnId],
+      taskIds: [...data.columns[columnId].taskIds, newTaskId],
     };
 
-    setCards((prev) => [...prev, newCard]);
+    setData((prevData) => ({
+      ...prevData,
+      tasks: updatedTasks,
+      columns: {
+        ...prevData.columns,
+        [columnId]: updatedColumn,
+      },
+    }));
     setAdding(false);
   };
 
