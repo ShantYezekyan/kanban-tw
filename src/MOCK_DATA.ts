@@ -1,50 +1,61 @@
-export type CardData = {
-  title: string;
-  id: string;
-  column: string;
-};
+import type { BoardData } from "./types";
 
-export const DEFAULT_CARDS: CardData[] = [
-  // BACKLOG
-  {
-    title: "Evaluate UI framework for admin panel",
-    id: "1",
-    column: "backlog",
+export const DEFAULT_CARDS: BoardData = {
+  columns: {
+    "column-1": {
+      id: "column-1",
+      title: "BACKLOG",
+      headingColor: "text-neutral-500",
+      taskIds: ["task-1", "task-2", "task-3", "task-4"],
+    },
+    "column-2": {
+      id: "column-2",
+      title: "TODO",
+      headingColor: "text-yellow-200",
+      taskIds: ["task-5", "task-6", "task-7"],
+    },
+    "column-3": {
+      id: "column-3",
+      title: "In Progress",
+      headingColor: "text-blue-200",
+      taskIds: ["task-8", "task-9"],
+    },
+    "column-4": {
+      id: "column-4",
+      title: "DONE",
+      headingColor: "text-emerald-200",
+      taskIds: ["task-10"],
+    },
   },
-  {
-    title: "Update privacy policy for GDPR compliance",
-    id: "2",
-    column: "backlog",
+  tasks: {
+    "task-1": { title: "Evaluate UI framework for admin panel", id: "task-1" },
+    "task-2": {
+      title: "Update privacy policy for GDPR compliance",
+      id: "task-2",
+    },
+    "task-3": {
+      title: "[SPIKE] Explore serverless architecture benefits",
+      id: "task-3",
+    },
+    "task-4": { title: "Revise API documentation structure", id: "task-4" },
+    "task-5": { title: "Assess NoSQL databases for scalability", id: "task-5" },
+    "task-6": { title: "Review incident response strategy", id: "task-6" },
+    "task-7": {
+      title: "Coordinate with design on new user flow",
+      id: "task-7",
+    },
+    "task-8": {
+      title: "Implement feature flags for gradual rollouts",
+      id: "task-8",
+    },
+    "task-9": {
+      title: "Optimize backend for speed improvements",
+      id: "task-9",
+    },
+    "task-10": {
+      title: "Finalize CI/CD pipeline for mobile apps",
+      id: "task-10",
+    },
   },
-  {
-    title: "[SPIKE] Explore serverless architecture benefits",
-    id: "3",
-    column: "backlog",
-  },
-  { title: "Revise API documentation structure", id: "4", column: "backlog" },
-  // TODO
-  {
-    title: "Assess NoSQL databases for scalability",
-    id: "5",
-    column: "todo",
-  },
-  { title: "Review incident response strategy", id: "6", column: "todo" },
-  { title: "Coordinate with design on new user flow", id: "7", column: "todo" },
-  // DOING
-  {
-    title: "Implement feature flags for gradual rollouts",
-    id: "8",
-    column: "doing",
-  },
-  {
-    title: "Optimize backend for speed improvements",
-    id: "9",
-    column: "doing",
-  },
-  // DONE
-  {
-    title: "Finalize CI/CD pipeline for mobile apps",
-    id: "10",
-    column: "done",
-  },
-];
+  columnOrder: ["column-1", "column-2", "column-3", "column-4"],
+};

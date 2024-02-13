@@ -1,32 +1,27 @@
-import { DropIndicator } from ".";
-import { motion } from "framer-motion";
-import type { CardDragInfo } from "./Column";
+import { memo } from "react";
+import { Draggable } from "react-beautiful-dnd";
 
 type CardProps = {
   title: string;
   id: string;
-  column: string;
-  handleDragStart: (
-    event: React.DragEvent<HTMLDivElement>,
-    card: CardDragInfo,
-  ) => void;
+  index: number;
 };
 
-const Card = ({ title, id, column, handleDragStart }: CardProps) => {
+const Card = memo(({ title, id, index }: CardProps) => {
   return (
-    <>
-      <DropIndicator beforeId={id} column={column} />
-      <motion.div
-        layout
-        layoutId={id}
-        draggable
-        onDragStart={(e) => handleDragStart(e, { title, id, column })}
-        className="cursor-grab rounded border border-neutral-700 bg-neutral-800 p-3 active:cursor-grabbing"
-      >
-        <p className=" text-sm text-neutral-100 ">{title}</p>
-      </motion.div>
-    </>
+    <Draggable draggableId={id} index={index}>
+      {({ innerRef, draggableProps, dragHandleProps }) => (
+        <div
+          {...draggableProps}
+          {...dragHandleProps}
+          ref={innerRef}
+          className="cursor-grab rounded border border-neutral-700 bg-neutral-800 p-3 active:cursor-grabbing"
+        >
+          <p className=" text-sm text-neutral-100 ">{title}</p>
+        </div>
+      )}
+    </Draggable>
   );
-};
+});
 
 export default Card;
