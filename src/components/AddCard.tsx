@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { CardData } from "../MOCK_DATA";
 import { FiPlus } from "react-icons/fi";
 import { motion } from "framer-motion";
 
 type AddCardProps = {
   column: string;
-  setCards: React.Dispatch<React.SetStateAction<CardData[]>>;
 };
 
-const AddCard = ({ column, setCards }: AddCardProps) => {
+const AddCard = ({ column }: AddCardProps) => {
   const [text, setText] = useState("");
   const [adding, setAdding] = useState(false);
 
