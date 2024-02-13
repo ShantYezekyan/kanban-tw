@@ -7,6 +7,28 @@ import type { ColumnType } from "../types";
 const Board = () => {
   const { data, setData } = useBoardData();
 
+  const deleteCard = (source: DraggableLocation, draggableId: string) => {
+    setData((prevData) => {
+      const startColumn = prevData.columns[source.droppableId];
+      const newTaskIds = startColumn.taskIds.filter((id) => id !== draggableId);
+
+      const newColumn = {
+        ...startColumn,
+        taskIds: newTaskIds,
+      };
+
+      const newData = {
+        ...prevData,
+        columns: {
+          ...prevData.columns,
+          [newColumn.id]: newColumn,
+        },
+      };
+
+      return newData;
+    });
+  };
+
   const moveWithinColumn = (
     start: ColumnType,
     source: DraggableLocation,
@@ -68,6 +90,11 @@ const Board = () => {
       return;
     }
 
+    if (destination?.droppableId === "delete-box") {
+      deleteCard(source, draggableId);
+      return;
+    }
+
     //Check if dropped in the same column
     if (
       destination.droppableId === source.droppableId &&
@@ -105,7 +132,7 @@ const Board = () => {
           })}
         </div>
 
-        {/* <DeleteBox setCards={setCards} /> */}
+        <DeleteBox />
       </div>
     </DragDropContext>
   );
