@@ -1,7 +1,7 @@
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext } from "@hello-pangea/dnd";
 import { useBoardData } from "../hooks/useBoardData";
 import { Column, DeleteBox } from ".";
-import type { DropResult, DraggableLocation } from "react-beautiful-dnd";
+import type { DropResult, DraggableLocation } from "@hello-pangea/dnd";
 import type { ColumnType } from "../types";
 
 const Board = () => {
